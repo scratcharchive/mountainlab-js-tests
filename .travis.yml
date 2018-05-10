@@ -1,9 +1,13 @@
 sudo: required
 
+language: generic
+
 services:
   - docker
 
 install:
   - docker build -t mountainlab-js-test .
+
+script:
   - docker run mountainlab-js-test
 
