@@ -1,7 +1,11 @@
-language: node_js
-node_js:
-  - "node"
-python:
-  - "3.6"
+sudo: required
+
+language: ruby
+
 services:
-  - mongodb
+  - docker
+
+before_install:
+  - docker build -t mountainlab-js-test .
+  - docker run mountainlab-js-test
+
