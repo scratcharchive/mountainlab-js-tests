@@ -1,0 +1,18 @@
+#!/bin/sh -e
+remote=origin
+if [[ $# -ge 2 ]] ; then
+  remote=$1 ; shift
+fi
+if [[ $# -ge 1 ]] ; then
+  branch=$1 ; shift
+  git checkout -f $branch
+else
+  branch=$(git symbolic-ref --short HEAD)
+fi
+git fetch $remote $branch
+git reset --hard FETCH_HEAD
+git submodule update --init
+git submodule foreach "git fetch $remote $branch && git reset --hard FETCH_HEAD"
+git add -u
+git commit -m "auto-update submodules $*"
+git push $remote $branch
