@@ -11,3 +11,9 @@ install:
 script:
   - docker run mountainlab-js-test
 
+notifications:
+  email:
+    recipients:
+      - jmagland@flatironinstitute.org
+    on_success: always # default: change
+    on_failure: always # default: always
