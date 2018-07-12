@@ -2,22 +2,23 @@
 FROM magland/pynode:try1
 
 # Install mountainlab-js
-WORKDIR /working
-COPY mountainlab-js /working/mountainlab-js
+ADD https://api.github.com/repos/flatironinstitute/mountainlab-js/git/refs/heads/master mountainlab-js_version.json
+RUN git clone https://github.com/flatironinstitute/mountainlab-js /working/mountainlab-js
 WORKDIR /working/mountainlab-js
-RUN npm install --unsafe-perm # unsafe-perm is required here because we are root
-ENV PATH /working/mountainlab-js/bin:$PATH
+RUN npm install -g --unsafe-perm # unsafe-perm is required here because we are root
 
-# Install packages
 RUN mkdir -p /working/.mountainlab/packages
-WORKDIR /working/.mountainlab/packages
 ENV ML_PACKAGE_SEARCH_DIRECTORY /working/.mountainlab/packages
 
-COPY packages/ml_ephys /working/.mountainlab/packages/ml_ephys
-RUN cd ml_ephys && pip3 install --upgrade -r requirements.txt
+ADD https://api.github.com/repos/magland/ml_ephys/git/refs/heads/master ml_ephys_version.json
+RUN git clone https://github.com/magland/ml_ephys /working/.mountainlab/packages/ml_ephys
+WORKDIR /working/.mountainlab/packages/ml_ephys
+RUN pip3 install --upgrade -r requirements.txt
 
-COPY packages/ml_ms4alg /working/.mountainlab/packages/ml_ms4alg
-RUN cd ml_ms4alg && pip3 install --upgrade -r requirements.txt
+ADD https://api.github.com/repos/magland/ml_ms4alg/git/refs/heads/master ml_ms4alg_version.json
+RUN git clone https://github.com/magland/ml_ms4alg /working/.mountainlab/packages/ml_ms4alg
+WORKDIR /working/.mountainlab/packages/ml_ms4alg
+RUN pip3 install --upgrade -r requirements.txt
 
 WORKDIR /working
 COPY tests /working/tests
