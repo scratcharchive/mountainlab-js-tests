@@ -1,9 +1,0 @@
-[submodule "mountainlab-js"]
-	path = mountainlab-js
-	url = https://github.com/flatironinstitute/mountainlab-js
-[submodule "packages/ml_ephys"]
-	path = packages/ml_ephys
-	url = https://github.com/magland/ml_ephys
-[submodule "packages/ml_ms4alg"]
-	path = packages/ml_ms4alg
-	url = https://github.com/magland/ml_ms4alg
