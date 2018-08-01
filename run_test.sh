@@ -4,4 +4,4 @@
 set -e
 
 docker build -t mountainlab-js-tests .
-docker run -it mountainlab-js-tests
+docker run -it mountainlab-js-tests $1
